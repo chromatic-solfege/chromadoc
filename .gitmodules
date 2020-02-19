@@ -1,3 +1,6 @@
 [submodule "submodules/chromatic-solfege"]
 	path = submodules/chromatic-solfege
 	url = https://github.com/chromatic-solfege/chromatic-solfege
+[submodule "submodules/chromatic-solfege-for-lilypond"]
+	path = submodules/chromatic-solfege-for-lilypond
+	url = https://github.com/chromatic-solfege/chromatic-solfege-for-lilypond.git
