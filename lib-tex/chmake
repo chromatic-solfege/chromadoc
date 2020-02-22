@@ -101,7 +101,7 @@ if [[ $FLG_VOICE == "YES" ]]; then
         echo "Processing ${NAME} ..."
         # echo "$OUTPUT_DIR/${NAME}"-[0-9]*
         rm -v "$OUTPUT_DIR/${NAME}-"*
-        chromadoc2js --output "$OUTPUT_DIR" --debug "$DEBUG" --generator "$GENERATOR" "${FILE}" > "${NAME}".js
+        cat "${FILE}" | chromadoc2js --output "$OUTPUT_DIR" --debug "$DEBUG" --generator "$GENERATOR" > "${NAME}".js
         nodejs ${NAME}.js
       }
       echo 

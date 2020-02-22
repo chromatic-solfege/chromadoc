@@ -38,6 +38,8 @@ function init( __settings ) {
 		this.developmentMode = false;
 		this.alwaysOutputHeader = false;
 		this.enabled = false;
+
+		this.initBoundFunctions();
 	}
 
 	Object.defineProperties( ScaleGenerator.prototype, {
@@ -518,7 +520,59 @@ function init( __settings ) {
 	ScaleGenerator.prototype.t_score      = makeTagFunction( ScaleGenerator.prototype.writeScore      );
 	ScaleGenerator.prototype.t_diagram    = makeTagFunction( ScaleGenerator.prototype.writeDiagram    );
 
+	ScaleGenerator.boundFunctionNameList = [
+		't_abstract'      ,
+		't_headerPart'    ,
+		't_header0'       ,
+		't_header1'       ,
+		't_header2'       ,
+		't_header3'       ,
+		't_textBody'      ,
+		't_commands'      ,
+		't_score'         ,
+		't_diagram'       ,
+		'writeAbstract'   ,
+		'writeHeaderPart' ,
+		'writeHeader0'    ,
+		'writeHeader1'    ,
+		'writeHeader2'    ,
+		'writeHeader3'    ,
+		'writeTextBody'   ,
+		'writeCommands'   ,
+		'writeScore'      ,
+		'writeDiagram'    ,
+	];
 
+	ScaleGenerator.prototype.initBoundFunctions = function() {
+		this.boundFunctions = {};
+		var list= ScaleGenerator.boundFunctionNameList;
+		for ( var i=0; i<list.length; i++ ) {
+			this.boundFunctions[ list[i] ] = ScaleGenerator.prototype[ list[i] ].bind( this );
+		}
+
+		// this.boundFunctions ={
+		// 	t_abstract      : ScaleGenerator.prototype.t_abstract      .bind( this ),
+		// 	t_headerPart    : ScaleGenerator.prototype.t_headerPart    .bind( this ),
+		// 	t_header0       : ScaleGenerator.prototype.t_header0       .bind( this ),
+		// 	t_header1       : ScaleGenerator.prototype.t_header1       .bind( this ),
+		// 	t_header2       : ScaleGenerator.prototype.t_header2       .bind( this ),
+		// 	t_header3       : ScaleGenerator.prototype.t_header3       .bind( this ),
+		// 	t_textBody      : ScaleGenerator.prototype.t_textBody      .bind( this ),
+		// 	t_commands      : ScaleGenerator.prototype.t_commands      .bind( this ),
+		// 	t_score         : ScaleGenerator.prototype.t_score         .bind( this ),
+		// 	t_diagram       : ScaleGenerator.prototype.t_diagram       .bind( this ),
+		// 	writeAbstract   : ScaleGenerator.prototype.writeAbstract   .bind( this ),
+		// 	writeHeaderPart : ScaleGenerator.prototype.writeHeaderPart .bind( this ),
+		// 	writeHeader0    : ScaleGenerator.prototype.writeHeader0    .bind( this ),
+		// 	writeHeader1    : ScaleGenerator.prototype.writeHeader1    .bind( this ),
+		// 	writeHeader2    : ScaleGenerator.prototype.writeHeader2    .bind( this ),
+		// 	writeHeader3    : ScaleGenerator.prototype.writeHeader3    .bind( this ),
+		// 	writeTextBody   : ScaleGenerator.prototype.writeTextBody   .bind( this ),
+		// 	writeCommands   : ScaleGenerator.prototype.writeCommands   .bind( this ),
+		// 	writeScore      : ScaleGenerator.prototype.writeScore      .bind( this ),
+		// 	writeDiagram    : ScaleGenerator.prototype.writeDiagram    .bind( this ),
+		// };
+	};
 
 	ScaleGenerator.prototype.close = function(caption) {
 		// Output to their main file.
@@ -732,5 +786,5 @@ if ( require.main === module ) {
 
 
 
-// vim: filetype=javascript :
+// vim: filetype=javascript ts=4 noexpandtab:
 
