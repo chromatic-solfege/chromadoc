@@ -520,6 +520,10 @@ function init( __settings ) {
 	ScaleGenerator.prototype.t_score      = makeTagFunction( ScaleGenerator.prototype.writeScore      );
 	ScaleGenerator.prototype.t_diagram    = makeTagFunction( ScaleGenerator.prototype.writeDiagram    );
 
+	ScaleGenerator.prototype.t_TOC        = makeTagFunction( ScaleGenerator.prototype.writeTOC        );
+	ScaleGenerator.prototype.t_newPage    = makeTagFunction( ScaleGenerator.prototype.writeNewPage    );
+	ScaleGenerator.prototype.t_newLine    = makeTagFunction( ScaleGenerator.prototype.writeNewLine    );
+
 	ScaleGenerator.boundFunctionNameList = [
 		't_abstract'      ,
 		't_headerPart'    ,
@@ -531,6 +535,9 @@ function init( __settings ) {
 		't_commands'      ,
 		't_score'         ,
 		't_diagram'       ,
+		't_TOC'           ,
+		't_newPage'       ,
+		't_newLine'       ,
 		'writeAbstract'   ,
 		'writeHeaderPart' ,
 		'writeHeader0'    ,
@@ -541,6 +548,9 @@ function init( __settings ) {
 		'writeCommands'   ,
 		'writeScore'      ,
 		'writeDiagram'    ,
+		'writeTOC'        ,
+		'writeNewPage'    ,
+		'writeNewLine'    ,
 	];
 
 	ScaleGenerator.prototype.initBoundFunctions = function() {
@@ -561,6 +571,9 @@ function init( __settings ) {
 		// 	t_commands      : ScaleGenerator.prototype.t_commands      .bind( this ),
 		// 	t_score         : ScaleGenerator.prototype.t_score         .bind( this ),
 		// 	t_diagram       : ScaleGenerator.prototype.t_diagram       .bind( this ),
+		// 't_TOC'           ,
+		// 't_newPage'       ,
+		// 't_newLine'       ,
 		// 	writeAbstract   : ScaleGenerator.prototype.writeAbstract   .bind( this ),
 		// 	writeHeaderPart : ScaleGenerator.prototype.writeHeaderPart .bind( this ),
 		// 	writeHeader0    : ScaleGenerator.prototype.writeHeader0    .bind( this ),
@@ -571,6 +584,9 @@ function init( __settings ) {
 		// 	writeCommands   : ScaleGenerator.prototype.writeCommands   .bind( this ),
 		// 	writeScore      : ScaleGenerator.prototype.writeScore      .bind( this ),
 		// 	writeDiagram    : ScaleGenerator.prototype.writeDiagram    .bind( this ),
+		// 'writeTOC'        ,
+		// 'writeNewPage'    ,
+		// 'writeNewLine'    ,
 		// };
 	};
 
