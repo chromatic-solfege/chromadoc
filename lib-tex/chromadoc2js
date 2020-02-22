@@ -7,8 +7,7 @@ var DATE = new Date().toString();
 
 var DEBUG = 'false';
 var OUTPUT_DIR = 'out';
-var GENERATOR = 'c';
-
+var GENERATOR = 'CHROMADOC_FORMATTER';
 
 
 var argv = Array.prototype.concat.apply( process.argv );

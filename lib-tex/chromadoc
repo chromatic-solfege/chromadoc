@@ -13,7 +13,7 @@ function max_proc_count {
 
 OUTPUT_DIR="out"
 DEBUG="false"
-GENERATOR="c"
+GENERATOR="CHROMADOC_FORMATTER"
 POSITIONAL=()
 
 VOICE=$( nodejs -e 'console.log( require("chromadoc/settings").scmFestivalVoice ) ')
