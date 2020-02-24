@@ -48,68 +48,68 @@ Please note that although this system is partially written by nodejs, NPM is not
 
 ## Installation
 
+Chromadoc converter does not necessarily have to be installed to a specific 
+directory. You can place any directory. Typically you clone the GitHub 
+repository as:
 
+	git clone https://github.com/chromatic-solfege/chromadoc.git
+
+And then go to the directory and `source` the file `init-chromadoc` in the root 
+directory of the repository, and the preparation is done.
 
 ## Usage
 
-At first, open your terminal with bash as its shell and go to the root
+At first, open your terminal as its shell and go to the root
 directory of the Chromatic-Solfege documentation system and source a shell
 script file which name is "init-chromadoc".
 
 ```bash
-	. init-chromadocd
+	. init-chromadoc
 ```
 
-This will set up a number of environment variables. 
+This will set up some environment variables including `PATH`.
 
-The main task of using this system is writing JavaScript programs upon
-`chromatic.js` and `chromatic-formatter.js`.
+The main task of using this system is writing _Chromadoc_ scripts. A 
+_chromadoc_ file is simply a JavaScript program with some predefined variables 
+and functions. The Chromadoc you write will be compiled to plain JavaScript 
+programs at a later time.
 
-```
-	#!/usr/bin/nodejs
+A typical Chromadoc script is as:
 
-	var Chromatic = require('chromatic');
-	var ChromaticFormatter = require('chromatic/formatter');
-```
-
-ChromaticFormatter is a class which capsulates a session to output tex and
-lilypond scripts; it has to be instantiated on the top of the script file.
-
-	var cf = new ChromaticFormatter( "./output/" );
-
-The only argument of the constructor is to specify a path to a directory where
-every output file goes.
-
-    c.t_abstract`
+```javascript
+	t_abstract`
 		This document presents how to use the Chromatic-Solfege Documentation
 		System. Brab rab rabra ...
 	`;
 
-	c.t_header0`Introduction`;
-	c.t_textBody`
+	t_header0`Introduction`;
+	t_textBody`
 		This system is so-and-so and such-and-such.
 	`;
 
-    c.writeNewPage();
+	writeNewPage();
+
 	// Ouput Table of Contents
-    c.writeTOC();
-    c.writeNewPage();
+	writeTOC();
+	writeNewPage();
 
-    c.writeScore( 'example01', `@do do4 re mi `, {} );
-	
-    c.close();
+	writeScore( 'example01', `@do do4 re mi `, {} );
+```
 
-Note that this system heavily depends on JavaScript's new feature "template
-string" that enables users to use JavaScript as documentation tool.
+Note that the extensive use of _template string_. The main forcus of writing 
+Chromadoc script is writing a number of template string literals.
 
-After writing the script file, save it as "ch-000-example".
+After writing the script file, save it as "ex1.chromadoc".
 
-The file you wrote can be simply executed; it outputs a number of tex scripts 
-and lilypond scripts. But you usually have to properly compile these files 
-before you use them in your tex document.  In order to simplify the compilation 
-process, use `chromadoc`.
+In order to convert the script you have written into a beautifully readable 
+documents, use `chromadoc` command.
 
-	> chromadoc ch-000-example
+It firstly converts the script to JavaScript program, and then execute the 
+program. The program outputs a number of tex scripts and lilypond scripts.
+And `chromadoc` command automatically invokes necessary conversions to build
+a document we want.
+
+	> chromadoc ex1.chromadoc
 
 `chromadoc` clears the output directory and then executes the specified i 
 JavaScript file and invokes Lilypond and Festival Speech System to the created 
