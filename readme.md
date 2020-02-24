@@ -46,8 +46,76 @@ This system is built on following systems :
 
 Please note that although this system is partially written by nodejs, NPM is not necessary.
 
-## The Directory Structure
+## Installation
 
+
+
+## Usage
+
+At first, open your terminal with bash as its shell and go to the root
+directory of the Chromatic-Solfege documentation system and source a shell
+script file which name is "init-chromadoc".
+
+```bash
+	. init-chromadocd
+```
+
+This will set up a number of environment variables. 
+
+The main task of using this system is writing JavaScript programs upon
+`chromatic.js` and `chromatic-formatter.js`.
+
+```
+	#!/usr/bin/nodejs
+
+	var Chromatic = require('chromatic');
+	var ChromaticFormatter = require('chromatic/formatter');
+```
+
+ChromaticFormatter is a class which capsulates a session to output tex and
+lilypond scripts; it has to be instantiated on the top of the script file.
+
+	var cf = new ChromaticFormatter( "./output/" );
+
+The only argument of the constructor is to specify a path to a directory where
+every output file goes.
+
+    c.t_abstract`
+		This document presents how to use the Chromatic-Solfege Documentation
+		System. Brab rab rabra ...
+	`;
+
+	c.t_header0`Introduction`;
+	c.t_textBody`
+		This system is so-and-so and such-and-such.
+	`;
+
+    c.writeNewPage();
+	// Ouput Table of Contents
+    c.writeTOC();
+    c.writeNewPage();
+
+    c.writeScore( 'example01', `@do do4 re mi `, {} );
+	
+    c.close();
+
+Note that this system heavily depends on JavaScript's new feature "template
+string" that enables users to use JavaScript as documentation tool.
+
+After writing the script file, save it as "ch-000-example".
+
+The file you wrote can be simply executed; it outputs a number of tex scripts 
+and lilypond scripts. But you usually have to properly compile these files 
+before you use them in your tex document.  In order to simplify the compilation 
+process, use `chromadoc`.
+
+	> chromadoc ch-000-example
+
+`chromadoc` clears the output directory and then executes the specified i 
+JavaScript file and invokes Lilypond and Festival Speech System to the created 
+files.
+
+## The Directory Structure
 + chromadoc
 	- `readme.md`
 		The file which you are now reading. In case you did not notice that
@@ -165,71 +233,6 @@ Please note that although this system is partially written by nodejs, NPM is not
 		- vid2effect
 		- wav2mp4
 
-
-## Usage
-
-At first, open your terminal with bash as its shell and go to the root
-directory of the Chromatic-Solfege documentation system and source a shell
-script file which name is "init-chromadoc".
-
-```bash
-	. init-chromadocd
-```
-
-This will set up a number of environment variables. 
-
-The main task of using this system is writing JavaScript programs upon
-`chromatic.js` and `chromatic-formatter.js`.
-
-```
-	#!/usr/bin/nodejs
-
-	var Chromatic = require('chromatic');
-	var ChromaticFormatter = require('chromatic/formatter');
-```
-
-ChromaticFormatter is a class which capsulates a session to output tex and
-lilypond scripts; it has to be instantiated on the top of the script file.
-
-	var cf = new ChromaticFormatter( "./output/" );
-
-The only argument of the constructor is to specify a path to a directory where
-every output file goes.
-
-    c.t_abstract`
-		This document presents how to use the Chromatic-Solfege Documentation
-		System. Brab rab rabra ...
-	`;
-
-	c.t_header0`Introduction`;
-	c.t_textBody`
-		This system is so-and-so and such-and-such.
-	`;
-
-    c.writeNewPage();
-	// Ouput Table of Contents
-    c.writeTOC();
-    c.writeNewPage();
-
-    c.writeScore( 'example01', `@do do4 re mi `, {} );
-	
-    c.close();
-
-Note that this system heavily depends on JavaScript's new feature "template
-string" that enables users to use JavaScript as documentation tool.
-
-After writing the script file, save it as "ch-000-example".
-
-The file you wrote can be simply executed; it outputs a number of tex scripts 
-and lilypond scripts. But you usually have to properly compile these files 
-before you use them in your tex document.  In order to simplify the compilation 
-process, use `chromadoc`.
-
-	> chromadoc ch-000-example
-
-`chromadoc` clears the output directory and then executes the specified i 
-JavaScript file and invokes Lilypond and Festival Speech System to the created 
-files.
 
 ## Further Information
 
