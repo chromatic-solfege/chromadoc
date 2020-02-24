@@ -80,32 +80,31 @@ Lilypond scripts.
 A typical Chromadoc script is as:
 
 ```javascript
-	t_abstract`
-		This document presents how to use the Chromatic-Solfege Documentation
-		System. Brab rab rabra ...
-	`;
+t_abstract`
+	This document presents how to use the Chromatic-Solfege Documentation
+	System. Brab rab rabra ...
+`;
 
-	t_header0`Introduction`;
-	t_textBody`
-		This system is so-and-so and such-and-such.
-	`;
+t_header0`Introduction`;
+t_textBody`
+	This system is so-and-so and such-and-such.
+`;
 
-	writeNewPage();
+writeNewPage();
 
-	// Ouput Table of Contents
-	writeTOC();
-	writeNewPage();
+// Ouput Table of Contents
+writeTOC();
+writeNewPage();
 
-	writeScore( 'example01', `@do do4 re mi `, {} );
+writeScore( 'example01', `@do do4 re mi `, {} );
 ```
 
 Note that the extensive use of _template string_. The main forcus of writing 
 Chromadoc script is writing a number of template string literals.
 
-After writing the script file, save it as "ex1.chromadoc".
-
-In order to convert the script you have written into a beautifully readable 
-documents, use `chromadoc` command.
+After writing the script file, save it as "ex1.chromadoc". In order to convert 
+the script you have written into a beautifully readable documents, use  
+`chromadoc` command.
 
 It firstly converts the script to JavaScript program, and then execute the 
 program. The program outputs a number of tex scripts and lilypond scripts.
@@ -129,31 +128,51 @@ parameters than `t_` version.
 
 
 __t_abstract__
-`\\begin{abstract}`
+Outputs `\\begin{abstract} TEXT \\end{abstract}`.
 
 __t_headerPart__
+Outputs `\\part{ TEXT }`.
 
 __t_header0__
+Outputs `\\section{ TEXT }`.
 
 __t_header1__
+Outputs `\\subsection{ TEXT }`.
 
 __t_header2__
+Outputs `\\subsubsection{ TEXT }`.
 
 __t_header3__
+Outputs `\\paragraph{ TEXT }`.
+
+__t_header4__
+Outputs `\\subparagraph{ TEXT }`.
 
 __t_textBody__
-
-__t_commands__
+Outputs `TEXT` as is.
 
 __t_score__
+Outputs a musical score. This accepts 
+[Csall](/chromatic-solfege-for-javascript/)
+scripts.
+For further information, see [Chromatic-Solfege for 
+JavaScript](/chromatic-solfege-for-javascript/).
+
+__t_commands__
+Outputs a TeX command directly.
+
 
 __t_diagram__
+TODO
 
 __t_TOC__
+Outputs `\\tableofcontents`.
 
 __t_newPage__
+Outputs `~\\newpage`.
 
 __t_newLine__
+Outputs `\\\\~`.
 
 __writeAbstract__
 __writeHeaderPart__
