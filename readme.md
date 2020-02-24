@@ -55,7 +55,7 @@ repository as:
 	git clone https://github.com/chromatic-solfege/chromadoc.git
 
 And then go to the directory and `source` the file `init-chromadoc` in the root 
-directory of the repository, and the preparation is done.
+directory of the repository. 
 
 ## Usage
 
@@ -69,10 +69,13 @@ script file which name is "init-chromadoc".
 
 This will set up some environment variables including `PATH`.
 
-The main task of using this system is writing _Chromadoc_ scripts. A 
-_chromadoc_ file is simply a JavaScript program with some predefined variables 
-and functions. The Chromadoc you write will be compiled to plain JavaScript 
-programs at a later time.
+The main task of using this system is writing _Chromadoc_ scripts.
+The _chromadoc_ is designed to automate the generation of TeX files and 
+Lilypond files.
+
+A _chromadoc_ file is a JavaScript program which later will be compiled with 
+additional headers and footers. The converted program outputs TeX scripts and 
+Lilypond scripts. 
 
 A typical Chromadoc script is as:
 
@@ -114,6 +117,58 @@ a document we want.
 `chromadoc` clears the output directory and then executes the specified i 
 JavaScript file and invokes Lilypond and Festival Speech System to the created 
 files.
+
+## Command Reference
+
+The available tag functions are prefixed by `t_`. Every function has its 
+corresponding TeX tag. 
+
+The functions prefixed by `write` are advanced version of `t_` functions.
+The `write` functions can perform more precise control since these accept more 
+parameters than `t_` version.
+
+
+__t_abstract__
+`\\begin{abstract}`
+
+__t_headerPart__
+
+__t_header0__
+
+__t_header1__
+
+__t_header2__
+
+__t_header3__
+
+__t_textBody__
+
+__t_commands__
+
+__t_score__
+
+__t_diagram__
+
+__t_TOC__
+
+__t_newPage__
+
+__t_newLine__
+
+__writeAbstract__
+__writeHeaderPart__
+__writeHeader0__
+__writeHeader1__
+__writeHeader2__
+__writeHeader3__
+__writeTextBody__
+__writeCommands__
+__writeScore__
+__writeDiagram__
+__writeTOC__
+__writeNewPage__
+__writeNewLine__
+
 
 ## The Directory Structure
 + chromadoc
