@@ -171,18 +171,31 @@ __t_newLine__
 Outputs `\\\\~`.
 
 __writeAbstract__
+
 __writeHeaderPart__
+
 __writeHeader0__
+
 __writeHeader1__
+
 __writeHeader2__
+
 __writeHeader3__
+
 __writeTextBody__
+
 __writeCommands__
+
 __writeScore__
+
 __writeDiagram__
+
 __writeTOC__
+
 __writeNewPage__
+
 __writeNewLine__
+
 
 
 ## The Directory Structure
