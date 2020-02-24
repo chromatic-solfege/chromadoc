@@ -1,17 +1,13 @@
 
-Chromatic-Solfege Documentation Toolkit
+Chromadoc
 =======================================
 
 ## Introduction
 
-This toolkit contains a set of programs for writing documentation with a 
-new musical notation which is named _Chromatic-Solfege_.
-
-Chromatic-Solfege is an extension of traditional solfege system. As Solfege is 
-generally known as *"do re mi"*, the traditional solfege is using name system
-which is based on the diatonic scale. On the other hand, Chromatic-Solfege is
-based on the twelve-tone chromatic scale. That is, every tone in the 
-Chromatic-Solfege are independently named as *"do di re ri me mi fa ..."*.
+Chromadoc is a documentation toolkit for Chromatic-Solfege.  This toolkit 
+contains a set of programs to help writing documents consists the new musical 
+notation. For further information about Chromatic-Solfege, see [An Introduction 
+to  Chromatic-Solfege](./an-introduction-to-chromatic-solfege/).
 
 This toolkit helps to write documents which contains Chromatic-Solfege
 notation. With this toolkit, the notation which is written by the
