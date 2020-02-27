@@ -4,38 +4,35 @@ Chromadoc
 
 ## Introduction
 
-Chromadoc is a documentation toolkit for Chromatic-Solfege.  This toolkit 
-contains a set of programs to help writing documents consists the new musical 
-notation. For further information about Chromatic-Solfege, see [An Introduction 
-to  Chromatic-Solfege](./an-introduction-to-chromatic-solfege/).
+Chromadoc is a toolkit for writing documentation with Chromatic-Solfege 
+notation. This toolkit contains a compiler which compiles _Chromadoc_ document 
+into TeX and Lilypond, then builds PDF documents.
 
-This toolkit helps to write documents which contains Chromatic-Solfege
-notation. With this toolkit, the notation which is written by the
-Chromatic-Solfege is embeddable to a document. The notations which are embedded
-to the document are automatically compiled to sheets of music and embedded to
-the main document.  The compiler also automatically generates singing voice
-data of every embedded notations and can be used for other purposes.
-
-Let's call a document contains Chromatic-Solfege notation **Chromadoc**.
+_Chromadoc_ format is a file-format which can contain paragraphs with 
+Chromatic-Solfège notation embedded in them. These paragraphs are compiled into 
+TeX document. And the notations embedded to paragraphs are converted to 
+Lilypond documents and then embedded to the TeX document. The compiler also 
+generates singing voice data from Lilypond documents.
 
 This toolkit contains programs to perform following tasks : 
 
-- Automatically generating TeX file from a chromadoc.
-- Transposing chromatic note names.
-- Creating a sheet of music from a sequence of Chromatic-Solfege note names.
-- Creating singing voice data from a sequence of Chromatic-Solfege note names.
+- Automatically generating TeX file from a _Chromadoc_.
+- Transposing notes written in Chromatic-Solfège.
+- Compiling notes written in Chromatic-Solfège into Lilypond.
+- Compiling Lilypond documents into singing voice audio data.
 - Automatically generating patterns of a mechanical scale practice.
 - Enumerating all possible fingering pattern for the guitar from a sequence of
   Chromatic-Solfege note names and generating fingerboard charts.
 
 ## System Requirement
-
 This system is built on following systems :
 
 - bash
 - nodejs 
 - xelatex
 - Lilypond
+- ffmpeg
+- ImageMagick
 - Festival Speech Synthesis System
 - SoX
 - [Chromatic-Solfege for JavaScript](/chromatic-solfege-for-javascript/)
@@ -43,26 +40,21 @@ This system is built on following systems :
 Please note that although this system is partially written by nodejs, NPM is not necessary.
 
 ## Installation
+Chromadoc does not need installation. You can place any directory. 
 
-Chromadoc converter does not necessarily have to be installed to a specific 
-directory. You can place any directory. Typically you clone the GitHub 
+
+Go to any directory you want to place the _Chromadoc_ and clone the GitHub 
 repository as:
 
 	git clone https://github.com/chromatic-solfege/chromadoc.git
 
-And then go to the directory and `source` the file `init-chromadoc` in the root 
-directory of the repository. 
-
 ## Usage
-
-At first, open your terminal as its shell and go to the root
-directory of the Chromatic-Solfege documentation system and source a shell
-script file which name is "init-chromadoc".
+After clone _Chromadoc_, go to the directory and `source` the file 
+`init-chromadoc` in the root directory of the repository.
 
 ```bash
 	. init-chromadoc
 ```
-
 This will set up some environment variables including `PATH`.
 
 The main task of using this system is writing _Chromadoc_ scripts.
@@ -114,9 +106,8 @@ JavaScript file and invokes Lilypond and Festival Speech System to the created
 files.
 
 ## Command Reference
-
-The available tag functions are prefixed by `t_`. Every function has its 
-corresponding TeX tag. 
+The available tag-functions are prefixed by `t_`. Every function has its 
+corresponding TeX tag as describing following.
 
 The functions prefixed by `write` are advanced version of `t_` functions.
 The `write` functions can perform more precise control since these accept more 
@@ -148,11 +139,8 @@ __t_textBody__
 Outputs `TEXT` as is.
 
 __t_score__
-Outputs a musical score. This accepts 
-[Csall](/chromatic-solfege-for-javascript/)
-scripts.
-For further information, see [Chromatic-Solfege for 
-JavaScript](/chromatic-solfege-for-javascript/).
+Outputs a musical score. This accepts _Csall_ scripts.
+For further information, see [Chromatic-Solfege for JavaScript][csfj].
 
 __t_commands__
 Outputs a TeX command directly.
@@ -236,10 +224,11 @@ __writeNewLine__
 	+ lib-tex
 		This directory is for main script files.
 		- `chromadoc`
-			This is the main shell script.  `chromadoc` automates compilation 
-			of Chromadoc documents. This converts every specified chromadoc 
-			documents into a JavaScript program and then executes all of the 
-			programs. And `chromadoc` then invokes the following conversion.
+			This is the main shell script. `chromadoc` automates the 
+			compilation process of Chromadoc documents. This converts every 
+			specified chromadoc documents into a JavaScript program and then 
+			executes all of the programs. And `chromadoc` then invokes the 
+			following conversion.
 
 		- `chromadoc2js`
 			This program converts the passed Chromadoc document into a 
@@ -305,16 +294,55 @@ __writeNewLine__
 			This is the main script to start the generation.
 
 		- chmake-concat
+			This script concat given multiple audio/video files into another 
+			audio/video file.
+
+```sh
+	> chmake-concat infile1 infile2... outfile
+```
 		- chmake-mp4
+			This script generates a video from the output of `chromadoc` 
+			command.
+
+```sh
+	> chmake-mp4 in-dir background-image out-dir
+```
 		- lypdf2png
+			This script converts a Lilypond generated PDF to a PNG file.
+
 		- pdfwav2mp4
+			This script converts a TeX generated PDF and reading voice data 
+			into a mp4 movie file.
+			
 		- pngwav2mp4
+			This script converts a Lilypond generated PNG and reading voice 
+			data into a mp4 movie file.
+
 		- replace_text.js
+			This script replaces a specific string literal in a file with 
+			another specific string literal. This script is used for 
+			templating.
+
 		- txtwav2mp4
+			This script creates a movie from a text caption data and audio 
+			data.
 		- txtwav2mp4-header-template.svg
+			This is a SVG template for headers. This template is used for 
+			generating videos.
+			
 		- txtwav2mp4-template.svg
+			This is a SVG template for musical scores. This template is used 
+			for generating videos.
+
 		- vid2effect
+			This script adds effects to the generated video files by using 
+			GStreamer. This script is experimental and currently not used.
+
 		- wav2mp4
+			This script takes a filename of a wave file which _chromadoc_ 
+			output. Then it checks the filename and determin if the audio data 
+			is from a music singing audio or reading a caption audio.
+			And then the script creates videos from the audio data.
 
 
 ## Further Information
@@ -324,6 +352,5 @@ modules/commands.
 
 
 
-
-[modeline]: # ( vim: set noexpandtab fenc=utf-8 spell spl=en: )
-[modeline]: # ( vim: set fo+=a suffixesadd+=/readme.md,.md  noexpandtab fenc=utf-8 spell spl=en: )
+[csfj]: https://chromatic-solfege.github.io/chromatic-solfege-for-javascript/
+[modeline]: # ( vim: set fo+=wa suffixesadd+=/readme.md,.md  noexpandtab fenc=utf-8 spell spl=en: )
