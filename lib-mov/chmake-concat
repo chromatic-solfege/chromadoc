@@ -14,7 +14,7 @@ unset 'IN_FILES[${#IN_FILES[@]}-1]'
 
 function usage {
     echo "usage:";
-    echo "${0##*/} [IN_DIR] [OUT_FILE]";
+    echo "${0##*/} [IN_FILES ... ] [OUT_FILE]";
     exit;
 }
 
