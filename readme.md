@@ -37,6 +37,8 @@ This system is built on following systems :
 - SoX
 - sysvbanner
 - ges1.0-tools
+- GStreamer
+- frei0r-plugins for GStreamer
 - [Chromatic-Solfege for JavaScript](/chromatic-solfege-for-javascript/)
 - [Chromatic-Solfege for Lilypond](/chromatic-solfege-for-lilypond/)
 
