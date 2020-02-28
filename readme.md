@@ -35,7 +35,9 @@ This system is built on following systems :
 - ImageMagick
 - Festival Speech Synthesis System
 - SoX
+- sysvbanner
 - [Chromatic-Solfege for JavaScript](/chromatic-solfege-for-javascript/)
+- [Chromatic-Solfege for Lilypond](/chromatic-solfege-for-lilypond/)
 
 Please note that although this system is partially written by nodejs, NPM is not necessary.
 
