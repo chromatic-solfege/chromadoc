@@ -1,11 +1,21 @@
 #!/bin/bash
 
+IN_DIR="$1"
+IN_BACKGROUND_IMG="$2"
+OUT_DIR="$3"
+
+if [[ "$IN_DIR" = "" ]];then
+    IN_DIR="out"
+fi
+
+if [[ "$OUT_DIR" = "" ]];then
+    OUT_DIR="out-mov"
+fi
+
 WAVE_FILE="an-introduction-to-chromatic-solfege.wav"
 LOG_FILE="${WAVE_FILE%%.*}.log"
 MUSIC_FILE="${WAVE_FILE%%.*}.ogg"
 MOVIE_FILE="${WAVE_FILE%%.*}.mp4"
-IN_DIR=out
-OUT_DIR=out-mov
 
 # exec 1>"${LOG_FILE}"
 # exec 2>&1
@@ -32,7 +42,7 @@ chmake-mp4 $IN_DIR/ movbg.jpeg $OUT_DIR/
 
 START_TIME_04=$(date)
 banner "CONCAT MOV" 
-chmake-concat $OUT_DIR/*.mp4 "$WAVE_FILE" 
+chmake-concat $OUT_DIR/*.mp4 "$MOVIE_FILE" 
 
 TOTAL_END_TIME=$(date)
 

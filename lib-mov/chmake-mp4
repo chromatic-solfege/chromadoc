@@ -51,7 +51,7 @@ for IN_WAVE in "$IN_DIR"/*.wav
 do
     echo $IN_WAVE
     wav2mp4 "$IN_WAVE" "$IN_BACKGROUND_IMG" "$OUT_DIR" &
-    max_proc_count 3
+    max_proc_count 8
 done
 
 max_proc_count 1

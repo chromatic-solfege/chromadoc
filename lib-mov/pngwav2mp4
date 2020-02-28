@@ -7,7 +7,8 @@ IN_BACKGROUND_IMG="$3"
 OUT_MOV="$4"
 MERGED_IMG="$IN_IMG"-merged.png
 
-FADE_DURATION="1"
+FADE_DURATION="0.3"
+FADE_MARGIN="0.3"
 AUDIO_PADDING_LENGTH="0.1"
 
 # sox "$IN_AUDIO" "$MODIFIED_AUDIO" pad $AUDIO_PADDING_LENGTH $AUDIO_PADDING_LENGTH # reverb 10 1 50  100 0
@@ -31,9 +32,10 @@ IN_AUDIO_LENGTH=$( ffprobe -v error -show_entries format=duration \
     -of default=noprint_wrappers=1:nokey=1 \
     $IN_AUDIO)
 
-IN_AUDIO_LENGTH=$(printf "%0.1f" $( echo "scale=3; ($IN_AUDIO_LENGTH - $FADE_DURATION)/1" | bc ) )
+FADE_START_POS=$(printf "%0.2f" $( echo "scale=3; ($IN_AUDIO_LENGTH - $FADE_DURATION - $FADE_MARGIN)/1" | bc ) )
 
-echo "length is " $IN_AUDIO_LENGTH;
+echo "the length is " $IN_AUDIO_LENGTH;
+echo "the fade start position is " $FADE_START_POS;
 
 
 # without alpha=1, there are some cases that it does not work properly.
@@ -46,16 +48,37 @@ ffmpeg \
     -i "$IN_AUDIO" \
     -filter_complex \
     " \
-    [0:v]fade=t=in:st=0:d=$FADE_DURATION:alpha=1,fade=t=out:st=$IN_AUDIO_LENGTH:d=$FADE_DURATION:alpha=1[v0]; \
+    [0:v]fade=t=in:st=0:d=$FADE_DURATION:alpha=1,fade=t=out:st=$FADE_START_POS:d=$FADE_DURATION:alpha=1[v0]; \
     [1:v]scale=1280:720:force_original_aspect_ratio=decrease[v1]; \
     [v1][v0]overlay=0:0[v2];\
     [v2]concat=n=1:v=1:a=0,format=yuv420p[v] \
     " \
     -map "[v]" \
     -map "2:a" \
-    -c:v libx264 -tune stillimage -c:a libvo_aacenc -b:a 192k -pix_fmt yuv420p \
+    -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p \
     -shortest \
+    -t $IN_AUDIO_LENGTH \
     -loglevel verbose \
     "$OUT_MOV"
+
+# ffmpeg \
+#     -y \
+#     -nostats \
+#     -loop 1 -i "$MERGED_IMG" \
+#     -loop 1 -i "$IN_BACKGROUND_IMG" \
+#     -i "$IN_AUDIO" \
+#     -filter_complex \
+#     " \
+#     [0:v]fade=t=in:st=0:d=$FADE_DURATION:alpha=1,fade=t=out:st=$FADE_START_POS:d=$FADE_DURATION:alpha=1[v0]; \
+#     [1:v]scale=1280:720:force_original_aspect_ratio=decrease[v1]; \
+#     [v1][v0]overlay=0:0[v2];\
+#     [v2]concat=n=1:v=1:a=0,format=yuv420p[v] \
+#     " \
+#     -map "[v]" \
+#     -map "2:a" \
+#     -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p \
+#     -shortest \
+#     -loglevel verbose \
+#     "$OUT_MOV"
 
 echo ffmpeg -nostats -loop 1 -i "$MERGED_IMG" -i "$IN_AUDIO" -c:v libx264 -tune stillimage -preset fast -c:a aac -b:a 192k -pix_fmt yuv420p  "$OUT_MOV"
