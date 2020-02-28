@@ -36,6 +36,7 @@ This system is built on following systems :
 - Festival Speech Synthesis System
 - SoX
 - sysvbanner
+- ges1.0-tools
 - [Chromatic-Solfege for JavaScript](/chromatic-solfege-for-javascript/)
 - [Chromatic-Solfege for Lilypond](/chromatic-solfege-for-lilypond/)
 
